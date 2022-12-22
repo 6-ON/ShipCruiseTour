@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.form-field {
+    @apply max-md:mb-4 rounded-3xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md;
+}
+.form-submit{
+    @apply rounded-3xl bg-blue-500 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-blue-200;
+}
+.form-reset {
+    @apply rounded-3xl px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-red-400;
+}
+.fields-container {
+    @apply md:mb-4 text-lg max-md:flex max-md:flex-col max-md:justify-center ;
+}
+.auth-container {
+    @apply flex max-md:h-full md:h-screen w-full items-center justify-center bg-gray-900 bg-cover bg-no-repeat;
+}
+
+/* layout main styles */
+
+.nav-item {
+    @apply block h-16 border-b-4 border-transparent leading-[4rem] hover:border-current hover:text-blue-700;
+}
+.nav-item-icon {
+    @apply block border-b-4 border-transparent p-6 hover:border-blue-700;
+}
