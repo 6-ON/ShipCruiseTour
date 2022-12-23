@@ -1,6 +1,12 @@
 <?php
 
 ob_start();
-include __DIR__ . "/../views/home.php";
-$html = ob_get_clean();
-echo $html;
+include __DIR__ . "/../views/layouts/main.php";
+$layout = ob_get_clean();
+
+ob_start();
+include __DIR__ . "/../views/about-us.php";
+$page = ob_get_clean();
+
+$view =str_replace('{{content}}',$page,$layout);
+echo $view;
