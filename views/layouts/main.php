@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./dist/output.css">
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.5/dist/flowbite.min.css"/>
+    <link rel="icon" type="image/png" href="/assets/image/logo.png">
     <title>ShipCruiseTour</title>
 </head>
 <body>
@@ -35,9 +36,14 @@
                            aria-current="page">Home</a>
                     </li>
                     <li>
-                        <a href="/tickets"
+                        <a href="/cruise"
                            class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                           aria-current="page">Tickets</a>
+                           aria-current="page">Cruise</a>
+                    </li>
+                    <li>
+                        <a href="/ship"
+                           class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                           aria-current="page">Ship</a>
                     </li>
                     <li>
                         <a href="/about-us"
@@ -98,7 +104,10 @@
                 <a href="/about" class="mr-4 hover:underline md:mr-6 ">About</a>
             </li>
             <li>
-                <a href="/tickets" class="mr-4 hover:underline md:mr-6">Tickets</a>
+                <a href="/ship" class="mr-4 hover:underline md:mr-6 ">Ship</a>
+            </li>
+            <li>
+                <a href="/cruise" class="mr-4 hover:underline md:mr-6">Cruise</a>
             </li>
             <li>
                 <a href="/contact" class="mr-4 hover:underline md:mr-6">Contact</a>
