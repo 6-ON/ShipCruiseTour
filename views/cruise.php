@@ -1,8 +1,8 @@
 <div class="p-5 dark:bg-gray-900">
-    <h1 class="text-3xl font-extrabold text-center md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-blue-700 via-purple-400 to-sky-500 capitalize">book your ticket</h1>
+    <h1 class="text-3xl font-extrabold text-center md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-blue-700 via-purple-400 to-sky-500 capitalize">Choose a cruise</h1>
 </div>
 
-<div class="p-5 grid md :grid-cols-3 dark:bg-gray-900 gap-3 sm:grid-cols-2 grid-cols-1 justify-items-center">
+<div class="p-5 grid md :grid-cols-3 dark:bg-gray-900 gap-3 sm:grid-cols-2 grid-cols-1 justify-items-center"> 
 
     <a href="#" class="flex flex-col items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <img class="object-cover h-full w-full rounded-t-lg md:rounded-none md:rounded-l-lg" src="/assets/image//img-1.jpeg" alt="Cruise image">
