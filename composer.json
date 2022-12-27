@@ -1,0 +1,18 @@
+{
+    "name": "yc/ship-cruise-tour",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "6-ON",
+            "email": "aminhatim6@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.5",
+      "ext-pdo": "*"
+    }
+}
