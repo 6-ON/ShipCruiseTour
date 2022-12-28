@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.5/dist/flowbite.min.css"/>
     <link rel="icon" type="image/png" href="/assets/image/logo.png">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>ShipCruiseTour</title>
 </head>
 <body>

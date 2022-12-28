@@ -9,6 +9,11 @@ class Widget {
         return new CruiseCard($model);
     }
 
+    public static function popover()
+    {
+        return new Popover();
+    }
+
 }
 
 

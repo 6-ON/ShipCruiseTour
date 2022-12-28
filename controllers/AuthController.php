@@ -8,6 +8,7 @@ use app\core\middlewares\AuthMiddleware;
 use app\middlewares\AdminMiddleware;
 use app\core\Request;
 use app\core\Response;
+use app\models\Cruise;
 use app\models\LoginForm;
 use app\models\User;
 
@@ -71,5 +72,23 @@ class AuthController extends Controller
             exit;
         }
         return true;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function createCruise(Request $request, Response $response)
+    {
+
+        $cruise = new Cruise();
+        $data = $request->getBody();
+        $data['nights'] = date_diff(new \DateTime($data['endDate']) ,new \DateTime($data['startDate']))->d;
+
+        $cruise->loadData($data);
+        $cruise->validate();
+        echo "<pre>";
+        var_dump($cruise);
+        echo "</pre>";
+        exit();
     }
 }

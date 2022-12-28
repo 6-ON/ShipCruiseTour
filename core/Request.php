@@ -11,7 +11,7 @@ class Request
         if ($position === false) {
             return $path;
         } else {
-            return substr($path,0,$position);
+            return substr($path, 0, $position);
         }
     }
 
@@ -36,6 +36,10 @@ class Request
 
         if ($this->isPost()) {
             foreach ($_POST as $key => $value) {
+                if (is_array($value)) {
+                    $body[$key] = $value;
+                    continue;
+                }
                 if ($value) {
                     $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
                 }
@@ -44,7 +48,10 @@ class Request
 
         if ($this->isGet()) {
             foreach ($_GET as $key => $value) {
-
+                if (is_array($value)) {
+                    $body[$key] = $value;
+                    continue;
+                }
                 $body[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
             }
         }

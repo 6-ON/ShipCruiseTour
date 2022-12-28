@@ -2,88 +2,23 @@
 
 use app\widgets\Widget;
 
+/** @var $cruises * */
+/** @var $ships * */
+/** @var $ports * */
 ?>
 <div class="p-5 dark:bg-gray-900">
     <h1 class="text-3xl font-extrabold text-center md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-blue-700 via-purple-400 to-sky-500 capitalize">
         Choose a cruise</h1>
 </div>
 
-<div class="p-5 grid md :grid-cols-3 dark:bg-gray-900 gap-3 sm:grid-cols-2 grid-cols-1 justify-items-center">
+<div class="p-5 grid dark:bg-gray-900 gap-3 sm:grid-cols-2 grid-cols-1 justify-items-center">
 
     <?php
     foreach ($cruises as $c) {
         echo Widget::cruiseCard($c);
     }
     ?>
-    <!--    <a href="#" data-popover-target="edit-delete" class="flex flex-col items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">-->
-    <!--        <img class="object-cover h-full w-full rounded-t-lg md:rounded-none md:rounded-l-lg" src="/assets/image//img-1.jpeg" alt="Cruise image">-->
-    <!--        <div class="flex w-full flex-col justify-between p-4 leading-normal">-->
-    <!--            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Royal Cruise</h5>-->
-    <!--            <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Ship:  <span class="text-sm font-medium">Default Ship</span></h5>-->
-    <!--            <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Starting Port:  <span class="text-sm font-medium">Default Ship</span></h5>-->
-    <!--            <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Visiting:  <span class="text-sm font-medium">P1,P2,P3,P4</span></h5>-->
-    <!--        </div>-->
-    <!--    </a>-->
-    <?php if (true): ?>
-        <div data-popover id="edit-delete" role="tooltip"
-             class="edit-button absolute z-10 invisible inline-block text-sm font-light text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-600">
 
-            <div class="flex gap-8 flex-row p-2 justify-center font-semibold  ">
-                <button type="button" id="deleteButton" data-modal-toggle="deleteModal"
-                        class="text-red-400 hover:text-red-700" value="idShip">Delete
-                </button>
-                <button type="button" data-modal-toggle="Modal" class="text-amber-400 hover:text-amber-700"
-                        value="idShip">Edit
-                </button>
-            </div>
-            <div data-popper-arrow></div>
-        </div>
-    <?php endif; ?>
-
-    <a href="#"
-       class="flex flex-col items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-        <img class="object-cover h-full w-full rounded-t-lg md:rounded-none md:rounded-l-lg"
-             src="/assets/image//img-1.jpeg" alt="Cruise image">
-        <div class="flex w-full flex-col justify-between p-4 leading-normal">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Royal Cruise</h5>
-            <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Ship: <span
-                        class="text-sm font-medium">Default Ship</span></h5>
-            <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Starting Port: <span
-                        class="text-sm font-medium">Default Ship</span></h5>
-            <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Visiting: <span
-                        class="text-sm font-medium">P1,P2,P3,P4</span></h5>
-        </div>
-    </a>
-
-    <a href="#"
-       class="flex flex-col items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-        <img class="object-cover h-full w-full rounded-t-lg md:rounded-none md:rounded-l-lg"
-             src="/assets/image//img-1.jpeg" alt="Cruise image">
-        <div class="flex w-full flex-col justify-between p-4 leading-normal">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Royal Cruise</h5>
-            <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Ship: <span
-                        class="text-sm font-medium">Default Ship</span></h5>
-            <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Starting Port: <span
-                        class="text-sm font-medium">Default Ship</span></h5>
-            <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Visiting: <span
-                        class="text-sm font-medium">P1,P2,P3,P4</span></h5>
-        </div>
-    </a>
-
-    <a href="#"
-       class="flex flex-col items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-        <img class="object-cover h-full w-full rounded-t-lg md:rounded-none md:rounded-l-lg"
-             src="/assets/image//img-1.jpeg" alt="Cruise image">
-        <div class="flex w-full flex-col justify-between p-4 leading-normal">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Royal Cruise</h5>
-            <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Ship: <span
-                        class="text-sm font-medium">Default Ship</span></h5>
-            <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Starting Port: <span
-                        class="text-sm font-medium">Default Ship</span></h5>
-            <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Visiting: <span
-                        class="text-sm font-medium">P1,P2,P3,P4</span></h5>
-        </div>
-    </a>
 
 </div>
 
@@ -114,16 +49,16 @@ use app\widgets\Widget;
                           clip-rule="evenodd"></path>
                 </svg>
                 <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to delete this item?</p>
-                <div class="flex justify-center items-center space-x-4">
+                <form action="/cruiseDelete" method="post" class="flex justify-center items-center space-x-4">
                     <button data-modal-toggle="deleteModal" type="button"
                             class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                         No, cancel
                     </button>
-                    <button type="submit"
+                    <button id="delete-cruise-confirm" type="submit"
                             class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
                         Yes, I'm sure
                     </button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -140,7 +75,7 @@ use app\widgets\Widget;
                         Edit Cruise
                     </h3>
                     <button type="button"
-                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            class="bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 via-gray-100 to-gray-900 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                             data-modal-toggle="Modal">
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                              xmlns="http://www.w3.org/2000/svg">
@@ -152,11 +87,11 @@ use app\widgets\Widget;
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form action="#" method="post">
+                <form action="/createCruise" method="post">
                     <div class="flex flex-col gap-4 mb-4">
                         <div>
                             <label for="label" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">label</label>
-                            <input type="text" name="name" id="label"
+                            <input type="text" name="label" id="label"
                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    placeholder="Type Cruise name" required="">
                         </div>
@@ -165,11 +100,11 @@ use app\widgets\Widget;
                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ship</label>
                             <select id="ship" name="shipId"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Choose a Ship</option>
-                                <option value="US">United States</option>
-                                <option value="CA">Canada</option>
-                                <option value="FR">France</option>
-                                <option value="DE">Germany</option>
+
+                                <option selected value="">Choose a Ship</option>
+                                <?php foreach ($ships as $ship): ?>
+                                    <option value="<?= $ship->id ?>"><?= $ship->label ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div>
@@ -178,11 +113,10 @@ use app\widgets\Widget;
                                 Port</label>
                             <select id="start_port" name="startPort"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Choose a Port</option>
-                                <option value="US">United States</option>
-                                <option value="CA">Canada</option>
-                                <option value="FR">France</option>
-                                <option value="DE">Germany</option>
+                                <option selected value="">Choose a port</option>
+                                <?php foreach ($ports as $port): ?>
+                                    <option value="<?= $port->id ?>"><?= $port->label ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div>
@@ -201,70 +135,19 @@ use app\widgets\Widget;
                             <div id="ports" class="hidden z-10 w-60 bg-white rounded shadow dark:bg-gray-700">
                                 <ul class="overflow-y-auto px-3 pb-3 h-48 text-sm text-gray-700 dark:text-gray-200"
                                     aria-labelledby="dropdownSearchButton">
-                                    <li>
-                                        <div class="flex items-center pl-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                            <input id="checkbox-item-11" name="visiting" type="checkbox" value=""
-                                                   class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                            <label for="checkbox-item-11"
-                                                   class="py-2 ml-2 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">Bonnie
-                                                Green</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="flex items-center pl-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                            <input checked id="checkbox-item-12" name="visiting" type="checkbox"
-                                                   value=""
-                                                   class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                            <label for="checkbox-item-12"
-                                                   class="py-2 ml-2 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">Jese
-                                                Leos</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="flex items-center pl-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                            <input id="checkbox-item-13" name="visiting" type="checkbox" value=""
-                                                   class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                            <label for="checkbox-item-13"
-                                                   class="py-2 ml-2 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">Michael
-                                                Gough</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="flex items-center pl-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                            <input id="checkbox-item-14" name="visiting" type="checkbox" value=""
-                                                   class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                            <label for="checkbox-item-14"
-                                                   class="py-2 ml-2 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">Robert
-                                                Wall</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="flex items-center pl-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                            <input id="checkbox-item-15" name="visiting" type="checkbox" value=""
-                                                   class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                            <label for="checkbox-item-15"
-                                                   class="py-2 ml-2 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">Joseph
-                                                Mcfall</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="flex items-center pl-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                            <input id="checkbox-item-16" name="visiting" type="checkbox" value=""
-                                                   class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                            <label for="checkbox-item-16"
-                                                   class="py-2 ml-2 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">Leslie
-                                                Livingston</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="flex items-center pl-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                            <input id="checkbox-item-17" name="visiting" type="checkbox" value=""
-                                                   class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                            <label for="checkbox-item-17"
-                                                   class="py-2 ml-2 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">Roberta
-                                                Casas</label>
-                                        </div>
-                                    </li>
+                                    <?php foreach ($ports as $port): ?>
+
+                                        <li>
+                                            <div class="flex items-center pl-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                                <input id="checkbox-item-<?= $port->id ?>" name="visiting[]" type="checkbox" value="<?php echo $port->id ?>"
+                                                       class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <label for="checkbox-item-<?= $port->id ?>"
+                                                       class="py-2 ml-2 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">
+                                                    <?= $port->label  ?></label>
+                                            </div>
+                                        </li>
+                                    <?php endforeach; ?>
+
                                 </ul>
                             </div>
 
@@ -283,7 +166,7 @@ use app\widgets\Widget;
                                                   clip-rule="evenodd"></path>
                                         </svg>
                                     </div>
-                                    <input name="start" type="text"
+                                    <input name="startDate" type="text"
                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                            placeholder="Select date start">
                                 </div>
@@ -297,7 +180,7 @@ use app\widgets\Widget;
                                                   clip-rule="evenodd"></path>
                                         </svg>
                                     </div>
-                                    <input name="end" type="text"
+                                    <input name="endDate" type="text"
                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                            placeholder="Select date end">
                                 </div>
@@ -307,7 +190,7 @@ use app\widgets\Widget;
                         <div>
                             <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
                             <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                   aria-describedby="file_input_help" id="ship-img" accept="image/jpeg" type="file">
+                                   aria-describedby="file_input_help" name="image" accept="image/jpeg" type="file">
                         </div>
                     </div>
                     <button type="submit"
@@ -335,5 +218,6 @@ use app\widgets\Widget;
 
 <?php endif; ?>
 
+
 <script src="https://unpkg.com/flowbite@1.5.5/dist/datepicker.js"></script>
-<script src="scripts/CRUD.js"></script>
+<script src="scripts/cruise.js"></script>

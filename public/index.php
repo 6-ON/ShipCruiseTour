@@ -32,10 +32,12 @@ $app->router->get('/ship', [SiteController::class, 'ship']);
 $app->router->get('/cruise', [SiteController::class, 'cruise']);
 $app->router->get('/port', [SiteController::class, 'port']);
 $app->router->get('/room', [SiteController::class, 'room']);
+$app->router->get('/getCruise', [SiteController::class, 'getCruise']);
 
 
 
 $app->router->post('/contact', [SiteController::class, 'handlingContact']);
+$app->router->post('/createCruise', [AuthController::class, 'createCruise']);
 
 
 
