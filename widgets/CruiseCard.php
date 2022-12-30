@@ -35,7 +35,7 @@ class CruiseCard
                 <button type="button" data-modal-toggle="deleteModal"
                         class="text-red-400 hover:text-red-700" value="%s">Delete
                 </button>
-                <button type="button" data-modal-toggle="Modal" class="text-amber-400 hover:text-amber-700"
+                <button type="button" data-modal-toggle="Modal" class="edit-button text-amber-400 hover:text-amber-700"
                         value="%s">Edit
                 </button>
             </div>

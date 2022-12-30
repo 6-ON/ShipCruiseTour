@@ -11,7 +11,12 @@ $(function () {
         }
     })
 
-
+    $('#createButton').on('click',function () {
+        $('#Modal form').attr('action','/createCruise')
+    })
+    $('.edit-button').on('click', function () {
+        $('#Modal form').attr('action','/editCruise')
+    })
     $('createButton').on('click',function () {
     })
 })

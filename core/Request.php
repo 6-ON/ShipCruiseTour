@@ -59,4 +59,19 @@ class Request
         return $body;
     }
 
+    public function getFiles()
+    {
+        return $_FILES;
+    }
+
+
+    public function getNamesOfFiles()
+    {
+        $body = [];
+        foreach ($_FILES as $key => $FILE) {
+            $body[$key] = $FILE['name'];
+        }
+        return $body;
+    }
+
 }

@@ -1,33 +1,17 @@
+<?php
+/* @var $ports*/
+
+use app\widgets\Widget;
+
+?>
+
 <div class="p-5 dark:bg-gray-900">
     <h1 class="text-3xl font-extrabold text-center md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-blue-700 via-purple-400 to-sky-500 capitalize">Explore Places</h1>
 </div>
 <div class="p-5 grid md:grid-cols-3 dark:bg-gray-900 gap-2 gap-y-6 sm:grid-cols-3 lg:grid-cols-4 grid-cols-1 justify-items-center">
-    <div class="max-w-xs bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-        <a href="/cruise/port1">
-            <img class="rounded-t-lg" src="/assets/image/img-1.jpeg" alt="" />
-        </a>
-        <div class="p-5">
-            <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Royal Ship</h5>
-            </a>
-
-            <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Read more
-                <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                </svg>
-            </a>
-            <div class="flex gap-8 flex-row p-2 justify-end font-semibold  ">
-                <button type="button" id="deleteButton" data-modal-toggle="deleteModal"
-                        class="text-red-400 hover:text-red-700" value="idShip">Delete
-                </button>
-                <button type="button"  data-modal-toggle="Modal" class="edit-button text-amber-400 hover:text-amber-700"
-                        value="idShip">Edit
-                </button>
-            </div>
-        </div>
-    </div>
-
+<?php foreach ($ports as $port): ?>
+<?php echo Widget::portCard($port)?>
+<?php endforeach; ?>
 </div>
 
 <?php if (true): ?>
@@ -61,7 +45,7 @@
                             class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                         No, cancel
                     </button>
-                    <button type="submit"
+                    <button type="submit" id="delete-confirm"
                             class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
                         Yes, I'm sure
                     </button>
@@ -72,7 +56,7 @@
 
 
 
-    <!-- create modal -->
+    <!-- create update modal -->
     <div id="Modal" tabindex="-1" aria-hidden="true"
          class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
         <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
@@ -96,17 +80,19 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form action="#">
+                <form action="/createPort" method="post" enctype="multipart/form-data">
+                    <input name="id" id="id-item" value="" hidden>
                     <div class="flex flex-col gap-4 mb-4">
                         <div>
                             <label for="label" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">label</label>
-                            <input type="text" name="name" id="label"
+                            <input type="text" name="label" id="label"
                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                    placeholder="Type Port name" required="">
                         </div>
                         <div>
-                            <label for="label" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
-                            <input class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="default_size" type="file">
+                            <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
+                            <input name="image" id="image"
+                                    class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"  type="file">
                         </div>
                     </div>
                     <button type="submit"
@@ -136,5 +122,5 @@
             <span class="sr-only">create a ship</span>
         </button>
     </div>
-
+    <script src="scripts/port.js"></script>
 <?php endif; ?>

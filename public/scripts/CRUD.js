@@ -1,4 +1,6 @@
 $(function () {
+
+
     let modalHeader = $('#Modal h3')
     $('#createButton').on('click', function () {
         modalHeader.text(modalHeader.text().replace('Edit', 'Create'))
@@ -8,11 +10,13 @@ $(function () {
     })
     $('.edit-button').on('click', function () {
          modalHeader.text(modalHeader.text().replace('Create', 'Edit'))
+        const id = $(this).val()
+        $('#id-item').attr('value',id)
     })
 
     $('button[data-modal-toggle="deleteModal"]').on('click', function () {
         const id = $(this).val()
-        $('#delete-cruise-confirm').val(id);
+        $('#delete-confirm').val(id);
 
     })
 })

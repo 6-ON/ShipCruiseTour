@@ -1,9 +1,11 @@
 <?php
+
 namespace app\widgets;
 
 use app\core\Model;
 
-class Widget {
+class Widget
+{
     public static function cruiseCard(Model $model)
     {
         return new CruiseCard($model);
@@ -14,7 +16,16 @@ class Widget {
         return new Popover();
     }
 
+    public static function portCard(Model $model)
+    {
+        return new PortCard($model);
+    }
+
+    public static function shipCard(Model $model)
+    {
+        return new ShipCard($model);
+    }
+
 }
 
 
-?>

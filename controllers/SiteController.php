@@ -33,7 +33,13 @@ class SiteController extends Controller
 
     public function ship(Request $request)
     {
-        return $this->render('ship');
+        $ships = Ship::getAll();
+
+        return $this->render('ship',
+        [
+            'ships'=>$ships
+        ]
+        );
     }
 
     public function cruise(Request $request)
@@ -55,8 +61,7 @@ class SiteController extends Controller
 
     public function port(Request $request)
     {
-        return $this->render('port');
-
+        return $this->render('port',['ports'=> Port::getAll()]);
     }
 
     public function getCruise(Request $request, Response $response)

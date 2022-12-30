@@ -35,9 +35,11 @@ $app->router->get('/room', [SiteController::class, 'room']);
 $app->router->get('/getCruise', [SiteController::class, 'getCruise']);
 
 
-
 $app->router->post('/contact', [SiteController::class, 'handlingContact']);
 $app->router->post('/createCruise', [AuthController::class, 'createCruise']);
+$app->router->post('/createPort', [AuthController::class, 'createPort']);
+$app->router->post('/createShip', [AuthController::class, 'createShip']);
+$app->router->post('/editPort', [AuthController::class, 'editPort']);
 
 
 
