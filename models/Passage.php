@@ -7,8 +7,8 @@ use app\core\DbModel;
 
 class Passage extends DbModel
 {
-    public $idCruise = '';
-    public $idPort = '';
+    public $cruiseId = '';
+    public $portId = '';
 
     public static function tableName(): string
     {
@@ -17,7 +17,7 @@ class Passage extends DbModel
 
     public function attributes(): array
     {
-        return ['idCruise', 'idPort'];
+        return ['cruiseId', 'portId'];
     }
 
     public static function primaryKey(): string
@@ -29,8 +29,8 @@ class Passage extends DbModel
     {
         return
             [
-                'idCruise' => self::RULE_REQUIRED,
-                'idPort' => self::RULE_REQUIRED
+                'cruiseId' => self::RULE_REQUIRED,
+                'portId' => self::RULE_REQUIRED
             ];
     }
 

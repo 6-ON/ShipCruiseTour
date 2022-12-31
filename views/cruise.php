@@ -54,7 +54,7 @@ use app\widgets\Widget;
                             class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                         No, cancel
                     </button>
-                    <button id="delete-confirm" type="submit"
+                    <button id="delete-confirm" name="id" type="submit"
                             class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
                         Yes, I'm sure
                     </button>
@@ -140,7 +140,7 @@ use app\widgets\Widget;
 
                                         <li>
                                             <div class="flex items-center pl-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                                <input value="<?=$port->{'id'} ?>" id="checkbox-item-<?php echo $port->id ?>" name="visiting[]" type="checkbox"  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <input value="<?= $port->id ?>" id="checkbox-item-<?php echo $port->id ?>" name="visiting[]" type="checkbox"  class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                                 <label for="checkbox-item-<?= $port->id ?>"
                                                        class="py-2 ml-2 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">
                                                     <?= $port->label  ?></label>
@@ -195,7 +195,7 @@ use app\widgets\Widget;
                     </div>
                     <button type="submit"
                             class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Apply Changes
+                        Apply
                     </button>
                 </form>
             </div>

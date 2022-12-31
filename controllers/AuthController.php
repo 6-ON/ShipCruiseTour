@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\core\Application;
 use app\core\Controller;
+use app\core\exception\ForbiddenException;
 use app\core\middlewares\AuthMiddleware;
 use app\middlewares\AdminMiddleware;
 use app\core\Request;
@@ -87,74 +88,94 @@ class AuthController extends Controller
         $data = $request->getBody();
         $data['nights'] = date_diff(new \DateTime($data['endDate']), new \DateTime($data['startDate']))->d;
         $cruise->loadData($data);
-        $cruise->validate();
-        echo "<pre>";
-        var_dump($data['visiting']);
-        echo "</pre>";
-        exit();
+        try {
+            Application::$app->db->exec('SET FOREIGN_KEY_CHECKS=0;');
+            Application::$app->db->pdo->beginTransaction();
+            if ($cruise->validate() && $cruise->save()) {
 
-        Application::$app->db->pdo->beginTransaction();
-        if ($cruise->validate() && $cruise->save()) {
-            try {
                 $idCruise = Application::$app->db->pdo->lastInsertId();
-                echo "<pre>";
-                var_dump($idCruise);
-                echo "</pre>";
-                exit();
+
                 foreach ($data['visiting'] as $idPort) {
                     $passage = new Passage();
                     $passage->loadData(
                         [
-                            'idPort' => $idPort,
-                            'idCruise' => $idCruise
+                            'portId' => $idPort,
+                            'cruiseId' => $idCruise
                         ]
                     );
                     $passage->save();
-                    Application::$app->db->pdo->commit();
+
                 }
-            } catch (\PDOException) {
-                Application::$app->db->pdo->rollBack();
+
+                Application::$app->db->pdo->commit();
+                $response->redirect('/cruise');
             }
-
-
+        } catch (\PDOException $e) {
+            Application::$app->db->pdo->rollBack();
+            throw $e;
+            exit;
         }
+
 
     }
 
 
-    public function createShip(Request $request,Response $response)
+    public function createShip(Request $request, Response $response)
     {
         $ship = new Ship();
-        $ship->loadData($request);
-        
-        if ($ship->validate()){
-            
-            
-            if($ship->save()){
+        $data = array_merge($request->getBody(), $request->getNamesOfFiles());
+
+        $ship->loadData($data);
+
+        if ($ship->validate()) {
+            $this->uploadImage();
+            if ($ship->save()) {
                 $response->redirect('/ship');
             }
         }
-        
+
     }
-    
-    
-    
-    
+
+
     public function createPort(Request $request, Response $response)
     {
         $port = new Port();
-        $data = array_merge($request->getBody(),$request->getNamesOfFiles());
+        $data = array_merge($request->getBody(), $request->getNamesOfFiles());
         $port->loadData($data);
-        if ($port->validate()){
+        if ($port->validate()) {
             $this->uploadImage();
-        }
-        if ($port->save()){
-            $response->redirect('/port');
+            if ($port->save()) {
+                $response->redirect('/port');
+            }
         }
 
     }
-    
-    
-    
-  
+
+
+    /**
+     * @throws ForbiddenException
+     */
+    public function deleteCruise(Request $request, Response $response)
+    {
+        $id = $request->getBody()['id'] ?? throw new ForbiddenException();
+        if (Cruise::delete(['id' => $id])) {
+            $response->redirect('/cruise');
+        }
+    }
+    public function deletePort(Request $request, Response $response)
+    {
+        $id = $request->getBody()['id'] ?? throw new ForbiddenException();
+        if (Port::delete(['id' => $id])) {
+            $response->redirect('/port');
+        }
+    }
+    public function deleteShip(Request $request, Response $response)
+    {
+        $id = $request->getBody()['id'] ?? throw new ForbiddenException();
+        if (Ship::delete(['id' => $id])) {
+            $response->redirect('/ship');
+        }
+    }
+
+
 }

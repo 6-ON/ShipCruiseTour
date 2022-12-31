@@ -41,6 +41,8 @@ $app->router->post('/createPort', [AuthController::class, 'createPort']);
 $app->router->post('/createShip', [AuthController::class, 'createShip']);
 $app->router->post('/editPort', [AuthController::class, 'editPort']);
 
+$app->router->post('/cruiseDelete', [AuthController::class, 'deleteCruise']);
+$app->router->post('/portDelete', [AuthController::class, 'deletePort']);
 
 
 
