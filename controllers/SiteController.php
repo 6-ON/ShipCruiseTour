@@ -12,6 +12,7 @@ use app\models\Cruise;
 use app\models\Passage;
 use app\models\Port;
 use app\models\Product;
+use app\models\Room;
 use app\models\Ship;
 
 class SiteController extends Controller
@@ -44,8 +45,15 @@ class SiteController extends Controller
 
     public function cruise(Request $request)
     {
+        $filters = [];
+        $idShip = $request->getBody()['ship']?? false;
+        $idPort = $request->getBody()['port']?? false;
+        if($idShip)
+            $filters['shipId'] = $idShip;
+        if($idPort)
+            $filters['startPort'] = $idPort;
         
-        $cruises = Cruise::getAll(true);
+        $cruises = Cruise::getAll(true,$filters);
         $ships = Ship::getAll();
         $ports = Port::getAll();
 
@@ -62,6 +70,16 @@ class SiteController extends Controller
     public function port(Request $request)
     {
         return $this->render('port',['ports'=> Port::getAll()]);
+    }
+
+    public function room()
+    {
+//        echo '<pre>';
+//        var_dump(Room::getAll(true,['cruiseId'=>26]));
+//        echo '</pre>';
+//        exit;
+
+        return $this->render('room');
     }
 
     public function getCruise(Request $request, Response $response)

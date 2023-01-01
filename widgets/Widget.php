@@ -26,6 +26,11 @@ class Widget
         return new ShipCard($model);
     }
 
+    public static function roomCard(Model $model)
+    {
+        return new RoomCard($model);
+    }
+
 }
 
 

@@ -12,7 +12,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>ShipCruiseTour</title>
 </head>
-<body>
+<body class="dark:bg-gray-900">
 <header>
 
 

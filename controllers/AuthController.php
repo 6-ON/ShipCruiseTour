@@ -73,6 +73,7 @@ class AuthController extends Controller
     {
 
         if (!move_uploaded_file($_FILES['image']['tmp_name'], Application::$ROOT_DIR . '/public/assets/image/' . $_FILES['image']['name'])) {
+            echo 'error uploading image';
             exit;
         }
         return true;
@@ -85,10 +86,14 @@ class AuthController extends Controller
     {
 
         $cruise = new Cruise();
-        $data = $request->getBody();
+        $data = array_merge($request->getBody(),$request->getNamesOfFiles());
         $data['nights'] = date_diff(new \DateTime($data['endDate']), new \DateTime($data['startDate']))->d;
+        $data['startDate'] =  date('Y-m-d',strtotime($data['startDate']));
         $cruise->loadData($data);
+
+
         try {
+            $this->uploadImage();
             Application::$app->db->exec('SET FOREIGN_KEY_CHECKS=0;');
             Application::$app->db->pdo->beginTransaction();
             if ($cruise->validate() && $cruise->save()) {

@@ -11,7 +11,7 @@ use app\widgets\Widget;
         Choose a cruise</h1>
 </div>
 
-<div class="p-5 grid dark:bg-gray-900 gap-3 sm:grid-cols-2 grid-cols-1 justify-items-center">
+<div class="p-5 grid dark:bg-gray-900 gap-3 sm:grid-cols-2 grid-cols-1 justify-items-center ">
 
     <?php
     foreach ($cruises as $c) {
@@ -87,7 +87,7 @@ use app\widgets\Widget;
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form action="/createCruise" method="post">
+                <form action="/createCruise" method="post" enctype="multipart/form-data">
                     <input name="id" id="id-item" value="" hidden>
                     <div class="flex flex-col gap-4 mb-4">
                         <div>
@@ -188,7 +188,7 @@ use app\widgets\Widget;
 
                         </div>
                         <div>
-                            <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
+                            <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
                             <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                    aria-describedby="file_input_help" name="image" accept="image/jpeg" type="file">
                         </div>
