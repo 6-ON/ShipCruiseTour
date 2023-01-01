@@ -37,23 +37,23 @@ class SiteController extends Controller
         $ships = Ship::getAll();
 
         return $this->render('ship',
-        [
-            'ships'=>$ships
-        ]
+            [
+                'ships' => $ships
+            ]
         );
     }
 
     public function cruise(Request $request)
     {
         $filters = [];
-        $idShip = $request->getBody()['ship']?? false;
-        $idPort = $request->getBody()['port']?? false;
-        if($idShip)
+        $idShip = $request->getBody()['ship'] ?? false;
+        $idPort = $request->getBody()['port'] ?? false;
+        if ($idShip)
             $filters['shipId'] = $idShip;
-        if($idPort)
+        if ($idPort)
             $filters['startPort'] = $idPort;
-        
-        $cruises = Cruise::getAll(true,$filters);
+
+        $cruises = Cruise::getAll(true, $filters);
         $ships = Ship::getAll();
         $ports = Port::getAll();
 
@@ -69,17 +69,24 @@ class SiteController extends Controller
 
     public function port(Request $request)
     {
-        return $this->render('port',['ports'=> Port::getAll()]);
+        return $this->render('port', ['ports' => Port::getAll()]);
     }
 
-    public function room()
+    /**
+     * @throws NotFoundException
+     */
+    public function room(Request $request)
     {
-//        echo '<pre>';
-//        var_dump(Room::getAll(true,['cruiseId'=>26]));
-//        echo '</pre>';
-//        exit;
+        $idCruise = $request->getBody()['cruise'] ?? throw new NotFoundException;
+        $rooms = Room::getAll(true, ['cruiseId' => $idCruise]);
 
-        return $this->render('room');
+
+        return $this->render('room', ['rooms' => $rooms]);
+    }
+
+    public function reservation()
+    {
+        return $this->render('reservation');
     }
 
     public function getCruise(Request $request, Response $response)

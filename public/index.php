@@ -33,6 +33,7 @@ $app->router->get('/cruise', [SiteController::class, 'cruise']);
 $app->router->get('/port', [SiteController::class, 'port']);
 $app->router->get('/room', [SiteController::class, 'room']);
 $app->router->get('/getCruise', [SiteController::class, 'getCruise']);
+$app->router->get('/reservation', [SiteController::class, 'reservation']);
 
 
 $app->router->post('/contact', [SiteController::class, 'handlingContact']);
