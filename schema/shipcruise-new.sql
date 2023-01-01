@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 31, 2022 at 06:01 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Generation Time: Jan 02, 2023 at 12:15 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,12 +42,15 @@ CREATE TABLE `cruise` (
 --
 
 INSERT INTO `cruise` (`id`, `shipId`, `image`, `nights`, `startDate`, `startPort`, `label`) VALUES
-(9, 1, 'img-1.jpeg', 1, '2022-12-23', 3, 'China Town'),
 (10, 1, 'img-1.jpeg', 2, '2022-12-28', NULL, 'Sweden Cruise'),
 (11, 1, 'img-1.jpeg', 7, '2022-12-16', NULL, 'Atlantic Ocean'),
-(23, 1, 'casa.jpeg', 5, '0000-00-00', 6, 'Cruise of People'),
-(24, 1, 'casa.jpeg', 9, '0000-00-00', 3, 'Cruise 658'),
-(25, 1, 'casa.jpeg', 4, '0000-00-00', 6, 'Cruise 654');
+(23, 1, 'casa.jpeg', 5, '2023-01-04', 6, 'Cruise of People'),
+(24, 1, 'casa.jpeg', 9, '2023-01-11', 3, 'Cruise 658'),
+(25, 1, 'casa.jpeg', 4, '2023-01-07', 6, 'Cruise 654'),
+(26, 2, '242506712_1282308865539958_7823311323625195426_n.jpg', 5, '2023-01-04', 5, 'Midjourney'),
+(27, 2, '242506712_1282308865539958_7823311323625195426_n.jpg', 7, '2023-01-06', 6, 'Rihla'),
+(28, 2, 'wallpapersden.com_dragons-above-cloud-game-of-throne-season-8_7680x4320.jpg', 6, '2023-01-18', 3, 'Journey'),
+(30, 1, 'wallpapersden.com_dragons-above-cloud-game-of-throne-season-8_7680x4320.jpg', 6, '2023-02-02', 3, 'Sea Trip');
 
 -- --------------------------------------------------------
 
@@ -84,9 +87,21 @@ CREATE TABLE `passage` (
 
 INSERT INTO `passage` (`cruiseId`, `portId`) VALUES
 (25, 3),
+(27, 3),
 (24, 5),
+(27, 5),
+(28, 5),
+(30, 5),
 (24, 6),
-(25, 8);
+(26, 6),
+(28, 6),
+(30, 6),
+(27, 7),
+(28, 7),
+(30, 7),
+(25, 8),
+(26, 8),
+(26, 14);
 
 -- --------------------------------------------------------
 
@@ -136,6 +151,27 @@ CREATE TABLE `room` (
   `typeId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `room`
+--
+
+INSERT INTO `room` (`id`, `shipId`, `typeId`) VALUES
+(1, 2, 2),
+(2, 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `roomv`
+-- (See below for the actual view)
+--
+CREATE TABLE `roomv` (
+`id` int(11)
+,`type` varchar(255)
+,`cruiseId` int(11)
+,`price` double
+);
+
 -- --------------------------------------------------------
 
 --
@@ -144,7 +180,7 @@ CREATE TABLE `room` (
 
 CREATE TABLE `room_type` (
   `id` int(11) NOT NULL,
-  `description` varchar(255) NOT NULL,
+  `label` varchar(255) NOT NULL,
   `price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -152,8 +188,10 @@ CREATE TABLE `room_type` (
 -- Dumping data for table `room_type`
 --
 
-INSERT INTO `room_type` (`id`, `description`, `price`) VALUES
-(1, 'Solo', 100);
+INSERT INTO `room_type` (`id`, `label`, `price`) VALUES
+(1, 'Solo', 100),
+(2, 'Duo', 200),
+(3, 'Family', 550);
 
 -- --------------------------------------------------------
 
@@ -173,7 +211,7 @@ CREATE TABLE `ship` (
 --
 
 INSERT INTO `ship` (`id`, `label`, `image`, `capacity`) VALUES
-(1, 'TestShip', 'img-1.jpeg', 1700),
+(1, 'Titanic', 'img-1.jpeg', 1700),
 (2, 'Maradona', 'templateCrousel.jpeg', 800);
 
 -- --------------------------------------------------------
@@ -206,7 +244,16 @@ INSERT INTO `user` (`id`, `email`, `firstName`, `lastName`, `role`, `password`, 
 --
 DROP TABLE IF EXISTS `cruisev`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `cruisev`  AS SELECT `c`.`id` AS `id`, `c`.`shipId` AS `shipId`, `c`.`image` AS `image`, `c`.`nights` AS `nights`, `c`.`startDate` AS `startDate`, `c`.`startPort` AS `startPort`, `c`.`label` AS `label`, `s`.`label` AS `ship`, `p`.`label` AS `startPortName` FROM ((`cruise` `c` join `ship` `s` on(`c`.`shipId` = `s`.`id`)) join `port` `p` on(`c`.`startPort` = `p`.`id`))  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `cruisev`  AS SELECT `c`.`id` AS `id`, `c`.`shipId` AS `shipId`, `c`.`image` AS `image`, `c`.`nights` AS `nights`, `c`.`startDate` AS `startDate`, `c`.`startPort` AS `startPort`, `c`.`label` AS `label`, `s`.`label` AS `ship`, `p`.`label` AS `startPortName` FROM ((`cruise` `c` join `ship` `s` on(`c`.`shipId` = `s`.`id`)) join `port` `p` on(`c`.`startPort` = `p`.`id`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `roomv`
+--
+DROP TABLE IF EXISTS `roomv`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `roomv`  AS SELECT `r`.`id` AS `id`, `rt`.`label` AS `type`, `c`.`id` AS `cruiseId`, `rt`.`price` AS `price` FROM (((`room` `r` join `room_type` `rt` on(`rt`.`id` = `r`.`typeId`)) join `ship` `s` on(`r`.`shipId` = `s`.`id`)) join `cruise` `c` on(`s`.`id` = `c`.`shipId`)) ;
 
 --
 -- Indexes for dumped tables
@@ -274,7 +321,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cruise`
 --
 ALTER TABLE `cruise`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `port`
@@ -286,13 +333,13 @@ ALTER TABLE `port`
 -- AUTO_INCREMENT for table `room`
 --
 ALTER TABLE `room`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `room_type`
 --
 ALTER TABLE `room_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `ship`
