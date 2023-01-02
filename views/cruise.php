@@ -1,5 +1,6 @@
 <?php
 
+use app\models\User;
 use app\widgets\Widget;
 
 /** @var $cruises * */
@@ -23,7 +24,7 @@ use app\widgets\Widget;
 </div>
 
 
-<?php if (true): ?>
+<?php if (User::isAdmin()): ?>
 
     <!-- delete modal -->
     <div id="deleteModal" tabindex="-1" aria-hidden="true"

@@ -18,16 +18,16 @@
                 <h1 class="mb-2 text-2xl">Ship Cruise</h1>
                 <span class="text-gray-300">Enter Login Details</span>
             </div>
-            <form action="#">
+            <form action="" method="post">
                 <div class="mb-4 text-lg">
                     <input
                             class="form-field"
-                            type="email" name="name" placeholder="email"/>
+                            type="email" name="email" placeholder="email"/>
                 </div>
                 <div class="mb-4 text-lg">
                     <input
                             class="form-field"
-                            type="password" name="name" placeholder="password"/>
+                            type="password" name="password" placeholder="password"/>
                 </div>
                 <div class="mt-8 text-lg flex justify-center">
                     <button class="form-submit">Login</button>

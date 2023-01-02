@@ -1,3 +1,9 @@
+<?php
+use app\core\Application;
+use app\models\User;
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,7 +35,7 @@
                         <path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
                     </svg>
                 </button>
-                <?php if (false): ?>
+                <?php if (Application::isGuest()): ?>
                 <!-- account dropdown for guests and clients-->
                 <div id="account-dropdown"
                      class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
@@ -54,10 +60,17 @@
                             <div class="truncate">name@test.com</div>
                     </div>
                     <ul class="py-1 text-sm text-gray-700 dark:text-gray-200">
+                        <?php if(User::isAdmin()): ?>
                         <li>
                             <a href="/stats"
                                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Statistics</a>
                         </li>
+                        <?php else: ?>
+                        <li>
+                            <a href="/reservation"
+                               class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Reservation</a>
+                        </li>
+                        <?php endif; ?>
                     </ul>
                     <div class="py-1">
                             <a href="/logout"

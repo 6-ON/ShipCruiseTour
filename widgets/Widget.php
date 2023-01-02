@@ -31,6 +31,11 @@ class Widget
         return new RoomCard($model);
     }
 
+    public static function reservationCard(Model $model)
+    {
+        return new ReservationCard($model);
+    }
+
 }
 
 

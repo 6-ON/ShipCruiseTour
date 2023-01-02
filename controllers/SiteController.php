@@ -12,6 +12,7 @@ use app\models\Cruise;
 use app\models\Passage;
 use app\models\Port;
 use app\models\Product;
+use app\models\Reservation;
 use app\models\Room;
 use app\models\Ship;
 
@@ -81,12 +82,18 @@ class SiteController extends Controller
         $rooms = Room::getAll(true, ['cruiseId' => $idCruise]);
 
 
-        return $this->render('room', ['rooms' => $rooms]);
+        return $this->render('room', ['rooms' => $rooms, 'idCruise' => $idCruise]);
     }
 
-    public function reservation()
+    public function reservation(Request $request, Response $response)
     {
-        return $this->render('reservation');
+        $uid = Application::$app->session->get('user');
+        if ($uid === false) {
+            $response->redirect('/login');
+            return null;
+        }
+        $reservations = Reservation::getAll(true, ['userId' => $uid]);
+        return $this->render('reservation', ['reservations' => $reservations]);
     }
 
     public function getCruise(Request $request, Response $response)

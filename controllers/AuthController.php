@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\core\Application;
 use app\core\Controller;
 use app\core\exception\ForbiddenException;
+use app\core\exception\NotFoundException;
 use app\core\middlewares\AuthMiddleware;
 use app\middlewares\AdminMiddleware;
 use app\core\Request;
@@ -13,6 +14,7 @@ use app\models\Cruise;
 use app\models\LoginForm;
 use app\models\Passage;
 use app\models\Port;
+use app\models\Reservation;
 use app\models\Ship;
 use app\models\User;
 
@@ -86,9 +88,9 @@ class AuthController extends Controller
     {
 
         $cruise = new Cruise();
-        $data = array_merge($request->getBody(),$request->getNamesOfFiles());
+        $data = array_merge($request->getBody(), $request->getNamesOfFiles());
         $data['nights'] = date_diff(new \DateTime($data['endDate']), new \DateTime($data['startDate']))->d;
-        $data['startDate'] =  date('Y-m-d',strtotime($data['startDate']));
+        $data['startDate'] = date('Y-m-d', strtotime($data['startDate']));
         $cruise->loadData($data);
 
 
@@ -167,6 +169,7 @@ class AuthController extends Controller
             $response->redirect('/cruise');
         }
     }
+
     public function deletePort(Request $request, Response $response)
     {
         $id = $request->getBody()['id'] ?? throw new ForbiddenException();
@@ -174,6 +177,7 @@ class AuthController extends Controller
             $response->redirect('/port');
         }
     }
+
     public function deleteShip(Request $request, Response $response)
     {
         $id = $request->getBody()['id'] ?? throw new ForbiddenException();
@@ -182,5 +186,53 @@ class AuthController extends Controller
         }
     }
 
+
+    public function reserveRoom(Request $request, Response $response)
+    {
+        $idRoom = $request->getBody()['roomId'] ?? false;
+        $idCruise = $request->getBody()['cruiseId'] ?? false;
+        $uid = Application::$app->session->get('user');
+
+        if ($uid && $idRoom && $idCruise) {
+            $reservation = new Reservation();
+            $data = $request->getBody();
+            $data['userId'] = $uid;
+            $reservation->loadData($data);
+            if ($reservation->validate() && $reservation->save()) {
+                $response->redirect('/reservation');
+            }
+
+        } else {
+            throw new ForbiddenException();
+        }
+    }
+
+    public function reserveCancel(Request $request, Response $response)
+    {
+        $uid = Application::$app->session->get('user');
+        $resId = $request->getBody()['id'] ?? false;
+
+        if ($uid && $resId) {
+            $conditions = [
+                'userId' => $uid,
+                'reservationId' => $resId
+            ];
+            $reservation = Reservation::findOne($conditions, true);
+            $current_date = date('Y-m-d', time());
+            if ($reservation) {
+                if (strtotime($reservation->startDate) > strtotime($current_date)) {
+                    Reservation::delete($conditions);
+                    Application::$app->session->setFlash('success-r','Reservation cancelled');
+                } else {
+                    $response->redirect('/reservation');
+                    Application::$app->session->setFlash('error-r','You can\'t cancel this reservation');
+                }
+
+            }
+            $response->redirect('/reservation');
+        } else {
+            throw new ForbiddenException();
+        }
+    }
 
 }

@@ -36,6 +36,8 @@ $app->router->get('/getCruise', [SiteController::class, 'getCruise']);
 $app->router->get('/reservation', [SiteController::class, 'reservation']);
 
 
+$app->router->post('/login', [AuthController::class, 'login']);
+$app->router->post('/register', [AuthController::class, 'register']);
 $app->router->post('/contact', [SiteController::class, 'handlingContact']);
 $app->router->post('/createCruise', [AuthController::class, 'createCruise']);
 $app->router->post('/createPort', [AuthController::class, 'createPort']);
@@ -44,7 +46,8 @@ $app->router->post('/editPort', [AuthController::class, 'editPort']);
 
 $app->router->post('/cruiseDelete', [AuthController::class, 'deleteCruise']);
 $app->router->post('/portDelete', [AuthController::class, 'deletePort']);
-
+$app->router->post('/roomReserve', [AuthController::class, 'reserveRoom']);
+$app->router->post('/cancelReserve', [AuthController::class, 'reserveCancel']);
 
 
 $app->run();

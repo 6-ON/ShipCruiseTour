@@ -1,5 +1,9 @@
 <?php
 /* @var $ships */
+
+use app\models\User;
+use app\widgets\Widget;
+
 ?>
 
 <div class="p-5 dark:bg-gray-900">
@@ -9,12 +13,12 @@
 <div class="p-5 grid md :grid-cols-3 dark:bg-gray-900 gap-2 gap-y-6 sm:grid-cols-3 lg:grid-cols-4 grid-cols-1 justify-items-center">
 
     <?php foreach ($ships as $ship): ?>
-    <?php  echo \app\widgets\Widget::shipCard($ship)?>
+    <?php  echo Widget::shipCard($ship)?>
     <?php endforeach; ?>
 </div>
 
 
-<?php if (true): ?>
+<?php if (User::isAdmin()): ?>
 
     <div id="deleteModal" tabindex="-1" aria-hidden="true"
          class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">

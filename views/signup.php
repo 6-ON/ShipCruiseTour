@@ -18,30 +18,30 @@
                 <h1 class="mb-2 text-2xl">Ship Cruise</h1>
                 <span class="text-gray-300">Enter Sign up Details</span>
             </div>
-            <form action="#">
+            <form action="/register" method="post">
                 <div class="fields-container">
                     <input
                             class="form-field"
-                            type="text" name="name" placeholder="First Name"/>
+                            type="text" name="firstName" placeholder="First Name"/>
                     <input
                             class="form-field md:ml-2"
-                            type="text" name="name" placeholder="Last Name"/>
+                            type="text" name="lastName" placeholder="Last Name"/>
                 </div>
                 <div class="fields-container">
                     <input
                             class="form-field"
-                            type="email" name="name" placeholder="email"/>
+                            type="email" name="email" placeholder="email"/>
                     <input
                             class="form-field md:ml-2"
-                            type="email" name="name" placeholder="Confirm Email"/>
+                            type="email" name="emailConfirm" placeholder="Confirm Email"/>
                 </div>
                 <div class="fields-container">
                     <input
                             class="form-field"
-                            type="password" name="name" placeholder="password"/>
+                            type="password" name="password" placeholder="password"/>
                     <input
                             class="form-field md:ml-2 "
-                            type="text" name="name" placeholder="Confirm Password"/>
+                            type="text" name="passwordConfirm" placeholder="Confirm Password"/>
                 </div>
 
                 <div class="mt-8 flex justify-center text-lg">

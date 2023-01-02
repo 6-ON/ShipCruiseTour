@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\core\Application;
 use app\core\DbModel;
 use app\core\Model;
 use app\core\UserModel;
@@ -14,6 +15,7 @@ class User extends UserModel
     public string $email = '';
     public string $password = '';
     public string $passwordConfirm = '';
+    public string $emailConfirm = '';
     public string $role = '';
 
 
@@ -29,6 +31,7 @@ class User extends UserModel
             'firstName' => [self::RULE_REQUIRED],
             'lastName' => [self::RULE_REQUIRED],
             'email' => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_UNIQUE, 'class' => self::class]],
+            'emailConfirm' => [self::RULE_REQUIRED, self::RULE_EMAIL, [self::RULE_MATCH, 'match' => 'email']],
             'password' => [self::RULE_REQUIRED, [self::RULE_MIN, 'min' => 8], [self::RULE_MAX, 'max' => 32]],
             'passwordConfirm' => [self::RULE_REQUIRED, [self::RULE_MATCH, 'match' => 'password']]
 
@@ -58,12 +61,18 @@ class User extends UserModel
         ];
     }
 
-	public static function primaryKey(): string {
-        return 'id';    
-	}
+    public static function primaryKey(): string
+    {
+        return 'id';
+    }
 
-	public function getDisplayName() :  string {
-
+    public function getDisplayName(): string
+    {
         return $this->firstName;
-	}
+    }
+
+    public static function isAdmin(): bool
+    {
+        return !Application::isGuest() && Application::$app->user->role === 'admin';
+    }
 }

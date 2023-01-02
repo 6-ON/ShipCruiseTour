@@ -1,6 +1,7 @@
 <?php
 /* @var $ports*/
 
+use app\models\User;
 use app\widgets\Widget;
 
 ?>
@@ -14,7 +15,7 @@ use app\widgets\Widget;
 <?php endforeach; ?>
 </div>
 
-<?php if (true): ?>
+<?php if (User::isAdmin()): ?>
 
     <!-- delete modal -->
     <div id="deleteModal" tabindex="-1" aria-hidden="true"

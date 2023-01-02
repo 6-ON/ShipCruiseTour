@@ -1,5 +1,8 @@
 <?php
 /* @var $rooms */
+/* @var $idCruise */
+
+use app\models\User;
 
 ?>
 
@@ -45,7 +48,7 @@
                 <button data-modal-toggle="reserveModal" value="<?= $room->id ?>"
                         class="reserve-btn font-semibold text-green-600 dark:text-green-500 hover:underline">Reserve
                 </button>
-                <?php if (true): ?>
+                <?php if (User::isAdmin()): ?>
                     <button data-modal-toggle="deleteModal"
                             value="<?= $room->id ?>"
                             class="font-semibold text-red-600 dark:text-red-500 hover:underline">Delete
@@ -58,7 +61,7 @@
     </table>
 </div>
 
-<?php if (true): ?>
+<?php if (User::isAdmin()): ?>
 
     <div id="deleteModal" tabindex="-1" aria-hidden="true"
          class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
@@ -119,11 +122,13 @@
             </svg>
             <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to Reserve this room?</p>
             <form action="/roomReserve" method="post" class="flex justify-center items-center space-x-4">
+                <input type="text" name="cruiseId" hidden value="<?= $idCruise ?>">
+
                 <button data-modal-toggle="reserveModal" type="button"
                         class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                     No, cancel
                 </button>
-                <button id="reserve-confirm" name="id" type="submit"
+                <button id="reserve-confirm" name="roomId" type="submit"
                         class="py-2 px-3 text-sm font-medium text-center text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-500 dark:hover:bg-green-600 dark:focus:ring-green-900">
                     Yes, I'm sure
                 </button>

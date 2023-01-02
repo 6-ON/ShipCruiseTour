@@ -39,11 +39,14 @@ abstract class DbModel extends Model
         return true;
     }
 
-    public static function findOne($where)
+    public static function findOne($where,bool $useView = false)
     {
         $tableName = static::tableName();
+        if ($useView){
+            $tableName = static::ViewName();
+        }
         $attributes = array_keys($where);
-        $sql = "SELECT * FROM $tableName WHERE " . implode('AND ', array_map(fn($attr) => "$attr = :$attr", $attributes));
+        $sql = "SELECT * FROM $tableName WHERE" . implode(' AND', array_map(fn($attr) => " $attr = :$attr", $attributes));
         $stmt = self::prepare($sql);
         foreach ($where as $key => $value) {
             $stmt->bindValue(":$key", $value);

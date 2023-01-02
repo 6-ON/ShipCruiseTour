@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 02, 2023 at 12:15 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- Generation Time: Jan 02, 2023 at 07:37 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,8 +42,8 @@ CREATE TABLE `cruise` (
 --
 
 INSERT INTO `cruise` (`id`, `shipId`, `image`, `nights`, `startDate`, `startPort`, `label`) VALUES
-(10, 1, 'img-1.jpeg', 2, '2022-12-28', NULL, 'Sweden Cruise'),
-(11, 1, 'img-1.jpeg', 7, '2022-12-16', NULL, 'Atlantic Ocean'),
+(10, 1, 'img-1.jpeg', 2, '2022-12-28', 6, 'Sweden Cruise'),
+(11, 1, 'img-1.jpeg', 7, '2022-12-16', 6, 'Atlantic Ocean'),
 (23, 1, 'casa.jpeg', 5, '2023-01-04', 6, 'Cruise of People'),
 (24, 1, 'casa.jpeg', 9, '2023-01-11', 3, 'Cruise 658'),
 (25, 1, 'casa.jpeg', 4, '2023-01-07', 6, 'Cruise 654'),
@@ -135,9 +135,35 @@ INSERT INTO `port` (`id`, `label`, `image`) VALUES
 --
 
 CREATE TABLE `reservation` (
+  `reservationId` int(11) NOT NULL,
   `roomId` int(11) NOT NULL,
-  `userId` int(11) NOT NULL
+  `userId` int(11) NOT NULL,
+  `cruiseId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reservation`
+--
+
+INSERT INTO `reservation` (`reservationId`, `roomId`, `userId`, `cruiseId`) VALUES
+(5, 3, 3, 10),
+(6, 4, 3, 10),
+(1, 2, 2, 26);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `reservationv`
+-- (See below for the actual view)
+--
+CREATE TABLE `reservationv` (
+`reservationId` int(11)
+,`type` varchar(255)
+,`price` double
+,`cruise` varchar(256)
+,`startDate` date
+,`userId` int(11)
+);
 
 -- --------------------------------------------------------
 
@@ -157,7 +183,9 @@ CREATE TABLE `room` (
 
 INSERT INTO `room` (`id`, `shipId`, `typeId`) VALUES
 (1, 2, 2),
-(2, 2, 2);
+(2, 2, 2),
+(3, 1, 3),
+(4, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -235,7 +263,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `email`, `firstName`, `lastName`, `role`, `password`, `created_at`) VALUES
-(1, 'test@test.t', 'test', 'test', 'client', 'nonhashed', '2022-12-21 13:39:41');
+(2, 'client@test.com', 'mr', 'Client', 'client', '$2y$10$KJ4oX9HdLOZVnV0v1qEYA.87i9WZ3.NIbm6/JPBWfy1DgLMDzjvhu', '2023-01-02 09:10:20'),
+(3, 'client2@test.com', 'second', 'client', 'admin', '$2y$10$zcT0mjHa5DcjcNeXbvoh8Opqwqz0cZirtnTU2Bkh1cbwXYg7MBNNm', '2023-01-02 13:24:09');
 
 -- --------------------------------------------------------
 
@@ -244,7 +273,16 @@ INSERT INTO `user` (`id`, `email`, `firstName`, `lastName`, `role`, `password`, 
 --
 DROP TABLE IF EXISTS `cruisev`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `cruisev`  AS SELECT `c`.`id` AS `id`, `c`.`shipId` AS `shipId`, `c`.`image` AS `image`, `c`.`nights` AS `nights`, `c`.`startDate` AS `startDate`, `c`.`startPort` AS `startPort`, `c`.`label` AS `label`, `s`.`label` AS `ship`, `p`.`label` AS `startPortName` FROM ((`cruise` `c` join `ship` `s` on(`c`.`shipId` = `s`.`id`)) join `port` `p` on(`c`.`startPort` = `p`.`id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `cruisev`  AS SELECT `c`.`id` AS `id`, `c`.`shipId` AS `shipId`, `c`.`image` AS `image`, `c`.`nights` AS `nights`, `c`.`startDate` AS `startDate`, `c`.`startPort` AS `startPort`, `c`.`label` AS `label`, `s`.`label` AS `ship`, `p`.`label` AS `startPortName` FROM ((`cruise` `c` join `ship` `s` on(`c`.`shipId` = `s`.`id`)) join `port` `p` on(`c`.`startPort` = `p`.`id`))  ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `reservationv`
+--
+DROP TABLE IF EXISTS `reservationv`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `reservationv`  AS SELECT `re`.`reservationId` AS `reservationId`, `rt`.`label` AS `type`, `rt`.`price` AS `price`, `c`.`label` AS `cruise`, `c`.`startDate` AS `startDate`, `re`.`userId` AS `userId` FROM ((((`reservation` `re` join `room` `r` on(`r`.`id` = `re`.`roomId`)) join `room_type` `rt` on(`r`.`typeId` = `rt`.`id`)) join `user` `u` on(`u`.`id` = `re`.`userId`)) join `cruise` `c` on(`re`.`cruiseId` = `c`.`id`))  ;
 
 -- --------------------------------------------------------
 
@@ -253,7 +291,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `roomv`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `roomv`  AS SELECT `r`.`id` AS `id`, `rt`.`label` AS `type`, `c`.`id` AS `cruiseId`, `rt`.`price` AS `price` FROM (((`room` `r` join `room_type` `rt` on(`rt`.`id` = `r`.`typeId`)) join `ship` `s` on(`r`.`shipId` = `s`.`id`)) join `cruise` `c` on(`s`.`id` = `c`.`shipId`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `roomv`  AS SELECT `r`.`id` AS `id`, `rt`.`label` AS `type`, `c`.`id` AS `cruiseId`, `rt`.`price` AS `price` FROM (((`room` `r` join `room_type` `rt` on(`rt`.`id` = `r`.`typeId`)) join `ship` `s` on(`r`.`shipId` = `s`.`id`)) join `cruise` `c` on(`s`.`id` = `c`.`shipId`))  ;
 
 --
 -- Indexes for dumped tables
@@ -284,8 +322,10 @@ ALTER TABLE `port`
 -- Indexes for table `reservation`
 --
 ALTER TABLE `reservation`
-  ADD PRIMARY KEY (`userId`,`roomId`),
-  ADD KEY `roomId` (`roomId`);
+  ADD PRIMARY KEY (`reservationId`),
+  ADD UNIQUE KEY `reserve_once` (`cruiseId`,`roomId`,`userId`),
+  ADD KEY `roomId` (`roomId`),
+  ADD KEY `userId` (`userId`);
 
 --
 -- Indexes for table `room`
@@ -321,7 +361,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cruise`
 --
 ALTER TABLE `cruise`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `port`
@@ -330,10 +370,16 @@ ALTER TABLE `port`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT for table `reservation`
+--
+ALTER TABLE `reservation`
+  MODIFY `reservationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `room`
 --
 ALTER TABLE `room`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `room_type`
@@ -351,7 +397,7 @@ ALTER TABLE `ship`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -376,7 +422,8 @@ ALTER TABLE `passage`
 --
 ALTER TABLE `reservation`
   ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`roomId`) REFERENCES `room` (`id`),
-  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `reservation_ibfk_3` FOREIGN KEY (`cruiseId`) REFERENCES `cruise` (`id`);
 
 --
 -- Constraints for table `room`
