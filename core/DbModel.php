@@ -39,10 +39,10 @@ abstract class DbModel extends Model
         return true;
     }
 
-    public static function findOne($where,bool $useView = false)
+    public static function findOne($where, bool $useView = false)
     {
         $tableName = static::tableName();
-        if ($useView){
+        if ($useView) {
             $tableName = static::ViewName();
         }
         $attributes = array_keys($where);
@@ -55,24 +55,72 @@ abstract class DbModel extends Model
         return $stmt->fetchObject(static::class);
     }
 
-    public static function getAll(bool $useView = false, array $where = [])
+//    public function scopeWhere(array $where = [])
+//    {
+//        if (!$where) return '';
+//        $sql = 'WHERE ';
+//        array_map(function ($param,$value) {
+//            if(is_string($value)){
+//                $sql = '$'
+//            }
+//        }, $where);
+//
+//    }
+
+    /**
+     * @throws \Exception
+     */
+    public static function getAll(bool $useView = false, array $where = [], array $paginate = [])
     {
-        if ($useView) {
-            $tableName = static::ViewName();
-        } else {
-            $tableName = static::tableName();
-        }
+
+        $tableName = $useView ? static::ViewName() : static::tableName();
         $sql = "SELECT * FROM $tableName";
+
         if (!empty($where)) {
-            $params = array_map(fn($prm) => "$prm = :$prm", array_keys($where));
-            $sql .= (' WHERE ' . implode(' AND ', $params));
-        }
-        $stmt = self::prepare($sql);
-        if (!empty($where)) {
+            $sql .= ' WHERE ';
+            $index = 0;
             foreach ($where as $param => $value) {
-                $stmt->bindValue(":$param",$value);
+                if (is_string($value) || is_int($value) ) {
+                    if ($index) $sql .= 'AND ';
+                    $sql .= "$param = :$param";
+                    $index++;
+                } elseif (is_array($value)) {
+                    foreach ($value as $rule) {
+                        if (is_array($rule)) {
+
+                            if ($index) $sql .= 'AND ';
+                            $sql .= "$param " . $rule[0] . " :param_$index ";
+                        } else
+                            throw new \Exception();
+                        $index++;
+                    }
+                } else
+                    throw new \Exception();
+            }
+
+        }
+
+        if ($paginate)
+            $sql .= sprintf(' LIMIT %u,%u',
+                $paginate[0] * $paginate[1] + 1,
+                $paginate[1]);
+        $stmt = self::prepare($sql);
+
+        if (!empty($where)) {
+            $index = 0;
+            foreach ($where as $param => $value) {
+                if (is_array($value))
+                    foreach ($value as $rule) {
+                        $stmt->bindValue(":param_$index", $rule[1]);
+                        $index++;
+                    }
+                else {
+                    $stmt->bindValue(":$param", $value);
+                    $index++;
+                }
             }
         }
+
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, static::class);

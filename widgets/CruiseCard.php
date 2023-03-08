@@ -29,6 +29,7 @@ class CruiseCard
         </a>
             <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Ship:  <span class="text-sm font-medium">%s</span></h5>
             <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Starting Port:  <span class="text-sm font-medium">%s</span></h5>
+            <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Starting Date:  <span class="text-sm font-medium">%s</span></h5>
             <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Visiting:  <span class="text-sm font-medium">%s</span></h5>
             <div class="flex gap-8 flex-row p-2 justify-end font-semibold  ">
                 <button type="button" data-modal-toggle="deleteModal"
@@ -47,6 +48,7 @@ class CruiseCard
                 $this->model->label,
                 $this->model->ship,
                 $this->model->startPortName,
+                $this->model->startDate,
                 implode(', ', $this->ports),
                 $this->model->id,
                 $this->model->id,
@@ -63,6 +65,7 @@ class CruiseCard
         </a>
             <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Ship:  <span class="text-sm font-medium">%s</span></h5>
             <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Starting Port:  <span class="text-sm font-medium">%s</span></h5>
+            <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Starting Date:  <span class="text-sm font-medium">%s</span></h5>
             <h5 class="mb-2 text-sm font-bold tracking-tight text-gray-900 dark:text-white">Visiting:  <span class="text-sm font-medium">%s</span></h5>
         </div>
     </div>
@@ -73,6 +76,7 @@ class CruiseCard
                 $this->model->label,
                 $this->model->ship,
                 $this->model->startPortName,
+                $this->model->startDate,
                 implode(', ', $this->ports)
 
             );

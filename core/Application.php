@@ -40,8 +40,8 @@ class Application
 
     public function run()
     {
-            echo $this->router->resolve();
         try {
+            echo $this->router->resolve();
         } catch (\Exception $exception) {
             $code = is_int($exception->getCode()) ? $exception->getCode() : 500;
             self::$app->response->setStatusCode($code);

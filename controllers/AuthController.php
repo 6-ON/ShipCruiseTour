@@ -89,10 +89,14 @@ class AuthController extends Controller
 
         $cruise = new Cruise();
         $data = array_merge($request->getBody(), $request->getNamesOfFiles());
-        $data['nights'] = date_diff(new \DateTime($data['endDate']), new \DateTime($data['startDate']))->d;
+        $nights = date_diff(new \DateTime($data['endDate']), new \DateTime($data['startDate']))->d;
+        if ($nights)
+            $data['nights'] = $nights;
+        else
+            $data['nights'] = 1;
+
         $data['startDate'] = date('Y-m-d', strtotime($data['startDate']));
         $cruise->loadData($data);
-
 
         try {
             $this->uploadImage();
@@ -115,8 +119,10 @@ class AuthController extends Controller
                 }
 
                 Application::$app->db->pdo->commit();
-                $response->redirect('/cruise');
+            } else {
+                Application::$app->session->setFlash('errors', $cruise->errors);
             }
+            $response->redirect('/cruise');
         } catch (\PDOException $e) {
             Application::$app->db->pdo->rollBack();
             throw $e;
@@ -220,12 +226,12 @@ class AuthController extends Controller
             $reservation = Reservation::findOne($conditions, true);
             $current_date = date('Y-m-d', time());
             if ($reservation) {
-                if (strtotime($reservation->startDate) > strtotime($current_date)) {
+                if (date_diff(new \DateTime($current_date), new \DateTime($reservation->startDate))->d > 2) {
                     Reservation::delete($conditions);
-                    Application::$app->session->setFlash('success-r','Reservation cancelled');
+                    Application::$app->session->setFlash('success-r', 'Reservation cancelled');
                 } else {
                     $response->redirect('/reservation');
-                    Application::$app->session->setFlash('error-r','You can\'t cancel this reservation');
+                    Application::$app->session->setFlash('error-r', 'You can\'t cancel this reservation');
                 }
 
             }

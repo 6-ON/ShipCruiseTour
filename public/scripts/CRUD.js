@@ -1,5 +1,9 @@
 $(function () {
+    const inputs = $('#Modal input,#Modal select');
 
+    inputs.on('invalid',function (e) {
+        e.preventDefault();
+    })
 
     let modalHeader = $('#Modal h3')
     $('#createButton').on('click', function () {

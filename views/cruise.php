@@ -11,7 +11,25 @@ use app\widgets\Widget;
     <h1 class="text-3xl font-extrabold text-center md:text-5xl lg:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-blue-700 via-purple-400 to-sky-500 capitalize">
         Choose a cruise</h1>
 </div>
-
+    <div class=" w-full">
+        <form class="flex gap-16 p-8" action="" method="get">
+            <div class="relative max-w-sm">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
+                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <input name="month" datepicker datepicker-format="yyyy-mm" type="text"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                       datepicker-buttons
+                       placeholder="Select Month">
+            </div>
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">filter</button>
+        </form>
+    </div>
 <div class="p-5 grid dark:bg-gray-900 gap-3 sm:grid-cols-2 grid-cols-1 justify-items-center ">
 
     <?php
@@ -94,14 +112,14 @@ use app\widgets\Widget;
                         <div>
                             <label for="label" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">label</label>
                             <input type="text" name="label" id="label"
-                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                   placeholder="Type Cruise name" required="">
+                                   class="bg-gray-50 invalid:bg-red-400 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                   placeholder="Type Cruise name" required>
                         </div>
                         <div>
                             <label for="ship"
                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ship</label>
                             <select id="ship" name="shipId"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
 
                                 <option selected value="">Choose a Ship</option>
                                 <?php foreach ($ships as $ship): ?>
@@ -114,7 +132,7 @@ use app\widgets\Widget;
                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Starting
                                 Port</label>
                             <select id="start_port" name="startPort"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                 <option selected value="">Choose a port</option>
                                 <?php foreach ($ports as $port): ?>
                                     <option value="<?= $port->id ?>"><?= $port->label ?></option>
@@ -169,7 +187,7 @@ use app\widgets\Widget;
                                     </div>
                                     <input name="startDate" type="text"
                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                           placeholder="Select date start">
+                                           placeholder="Select date start" required>
                                 </div>
                                 <span class="mx-4 text-gray-500">to</span>
                                 <div class="relative">
@@ -183,7 +201,7 @@ use app\widgets\Widget;
                                     </div>
                                     <input name="endDate" type="text"
                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                           placeholder="Select date end">
+                                           placeholder="Select date end" required>
                                 </div>
                             </div>
 
@@ -191,7 +209,7 @@ use app\widgets\Widget;
                         <div>
                             <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
                             <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                   aria-describedby="file_input_help" name="image" accept="image/jpeg" type="file">
+                                   aria-describedby="file_input_help" name="image" accept="image/jpeg" type="file" required>
                         </div>
                     </div>
                     <button type="submit"
@@ -202,6 +220,7 @@ use app\widgets\Widget;
             </div>
         </div>
     </div>
+
 
 
     <!-- create button-->
@@ -218,6 +237,39 @@ use app\widgets\Widget;
     </div>
 
 <?php endif; ?>
+<nav class="flex justify-center">
+    <ul class="inline-flex items-center -space-x-px">
+        <li>
+            <a href="#" class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                <span class="sr-only">Previous</span>
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+            </a>
+        </li>
+        <li>
+            <a href="?page=1" class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+        </li>
+        <li>
+            <a href="?page=2" class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
+        </li>
+        <li>
+            <a href="?page=3"
+               class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">3</a>
+        </li>
+
+        <li>
+            <a href="?page=4" class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
+        </li>
+        <li>
+            <a href="?page=5" class="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
+        </li>
+        <li>
+            <a href="#" class="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                <span class="sr-only">Next</span>
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+            </a>
+        </li>
+    </ul>
+</nav>
 
 
 <script src="https://unpkg.com/flowbite@1.5.5/dist/datepicker.js"></script>

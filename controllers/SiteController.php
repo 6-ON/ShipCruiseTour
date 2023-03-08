@@ -44,17 +44,37 @@ class SiteController extends Controller
         );
     }
 
+
     public function cruise(Request $request)
     {
         $filters = [];
         $idShip = $request->getBody()['ship'] ?? false;
         $idPort = $request->getBody()['port'] ?? false;
+        $month = $request->getBody()['month'] ?? false;
+        $page = $request->getBody()['page'] ?? false;
+        $pagination = [];
+        if ($page) {
+            $pagination = [
+                $page - 1,
+                5
+            ];
+        }
+        if ($month)
+            $filters['startDate'] = [
+                ['>', "$month-01"]
+                , ['<', "$month-31"]
+            ];
+        else
+            date('Y-m-d', time());
+
+
         if ($idShip)
             $filters['shipId'] = $idShip;
         if ($idPort)
             $filters['startPort'] = $idPort;
 
-        $cruises = Cruise::getAll(true, $filters);
+        $cruises = Cruise::getAll(true, $filters,$pagination);
+
         $ships = Ship::getAll();
         $ports = Port::getAll();
 
@@ -87,7 +107,9 @@ class SiteController extends Controller
 
     public function reservation(Request $request, Response $response)
     {
+
         $uid = Application::$app->session->get('user');
+
         if ($uid === false) {
             $response->redirect('/login');
             return null;
